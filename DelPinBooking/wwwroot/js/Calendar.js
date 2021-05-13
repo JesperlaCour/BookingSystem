@@ -60,24 +60,8 @@
                 title: 'Rendegraver 3,2t'
             }
         ],
-        events: [
-            {
-                id: '1',
-                resourceId: '1',
-                allDay: false,
-                title: 'John Smith',
-                start: '2021-05-13T12:30:00',
-                end: '2021-05-13T15:30:00'
-            },
-            {
-                id: '2',
-                resourceId: '2',
-                allDay: false,
-                title: 'Leif Johansen',
-                start: '2021-05-13T12:30:00',
-                end: '2021-05-14T12:30:00'
-            }
-        ],
+        events: "Calendar/getCalendarEvents",
+
         eventClick: function (info) {
             console.log("Fejler her", info, typeof info);
 
