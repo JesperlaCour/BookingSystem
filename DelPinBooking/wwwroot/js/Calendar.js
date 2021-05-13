@@ -51,19 +51,19 @@
         resources: [
             //your resource list
             {
-                id: 'a',
+                id: '1',
                 title: 'Gravemaskine 2t',
 
             },
             {
-                id: 'b',
+                id: '2',
                 title: 'Rendegraver 3,2t'
             }
         ],
         events: [
             {
                 id: '1',
-                resourceId: 'a',
+                resourceId: '1',
                 allDay: false,
                 title: 'John Smith',
                 start: '2021-05-13T12:30:00',
@@ -71,7 +71,7 @@
             },
             {
                 id: '2',
-                resourceId: 'b',
+                resourceId: '2',
                 allDay: false,
                 title: 'Leif Johansen',
                 start: '2021-05-13T12:30:00',
