@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Calendar\" />
+  </ItemGroup>
 </Project>
