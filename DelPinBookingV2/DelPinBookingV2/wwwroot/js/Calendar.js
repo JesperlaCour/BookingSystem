@@ -48,18 +48,7 @@
         //filterResourcesWithEvents: true,
 
         weekNumberCalculation: "ISO",
-        resources: [
-            //your resource list
-            {
-                id: '1',
-                title: 'Gravemaskine 2t',
-
-            },
-            {
-                id: '2',
-                title: 'Rendegraver 3,2t'
-            }
-        ],
+        resources: "Resource/getCalendarResources",
         events: "Calendar/getCalendarEvents",
 
         
