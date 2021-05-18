@@ -9,6 +9,7 @@ namespace DelPinBooking.Models
         public string Title { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
+        public int AddressId { get; set; }
 
         public Event()
         {
