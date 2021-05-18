@@ -21,6 +21,7 @@ namespace DelPinBookingV2.Controllers
             return View();
         }
 
+        [HttpGet]
         public JsonResult GetCalendarResources()
         {
             client = new HttpClient();
@@ -38,5 +39,6 @@ namespace DelPinBookingV2.Controllers
             else
                 return null;
         }
+
     }
 }
