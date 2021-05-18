@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventAPI.Model;
+using System.Configuration;
+using Microsoft.IdentityModel.Protocols;
 
 namespace EventAPI.Data
 {
@@ -19,7 +21,11 @@ namespace EventAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=tcp:lacour.database.windows.net,1433;Initial Catalog=DelPinEvents;Persist Security Info=False;User ID=Jesper_laCour;Password=Azure1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["EventAPIConnection"].ConnectionString);
+            }
+           
         }
     }
 }
