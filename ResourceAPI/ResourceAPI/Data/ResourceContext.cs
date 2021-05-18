@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResourceAPI.Models;
+using System.Configuration;
 
 namespace ResourceAPI.Data
 {
@@ -19,8 +20,13 @@ namespace ResourceAPI.Data
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseSqlServer(@"Db");
+            if (!optionsBuilder.IsConfigured)
+            {
+
+                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["Db"].ConnectionString);
+
             }
+        }
 
     }
 }
