@@ -51,33 +51,43 @@
         resources: [
             //your resource list
             {
-                id: 'a',
+                id: '1',
                 title: 'Gravemaskine 2t',
 
             },
             {
-                id: 'b',
+                id: '2',
                 title: 'Rendegraver 3,2t'
             }
         ],
-        events: [
-            {
-                id: '1',
-                resourceId: 'a',
-                allDay: false,
-                title: 'John Smith',
-                start: '2021-05-13T12:30:00',
-                end: '2021-05-13T15:30:00'
-            },
-            {
-                id: '2',
-                resourceId: 'b',
-                allDay: false,
-                title: 'Leif Johansen',
-                start: '2021-05-13T12:30:00',
-                end: '2021-05-14T12:30:00'
-            }
-        ],
+        events: "Calendar/getCalendarEvents",
+
+        
+        eventResize: function (info) {
+            console.log("EventResize");
+            alert("Event is resized");
+            var object = new Object();
+            object.start = info.event.startStr;
+            object.end = info.event.endStr;
+            object.title = info.event.title;
+            object.id = info.event.id;
+            object.resourceId = info.event._def.resourceIds
+            object.allDay = info.event.allDay;
+            object.addressId = 1;
+            console.log(object.id);
+            console.log(info);
+            console.log(info.event.resourcesIds)
+            $.ajax({
+                url: "Calendar/UpdateEvent",
+                type: "PUT",
+                dataType: "JSON",
+                data: object,
+                success: function (result) {
+                    alert("Updated id: " + result)
+                }
+            })
+        },
+
         eventClick: function (info) {
             console.log("Fejler her", info, typeof info);
 

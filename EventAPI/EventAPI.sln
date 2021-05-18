@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+VisualStudioVersion = 16.0.809.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelPinBooking", "DelPinBooking.csproj", "{1888B1C0-7BB7-4939-828C-4869104DE86D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAPI", "EventAPI\EventAPI.csproj", "{11BC2EF4-4E99-4343-AA1E-0697F1B7D5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1888B1C0-7BB7-4939-828C-4869104DE86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1888B1C0-7BB7-4939-828C-4869104DE86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1888B1C0-7BB7-4939-828C-4869104DE86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1888B1C0-7BB7-4939-828C-4869104DE86D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BC2EF4-4E99-4343-AA1E-0697F1B7D5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BC2EF4-4E99-4343-AA1E-0697F1B7D5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BC2EF4-4E99-4343-AA1E-0697F1B7D5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BC2EF4-4E99-4343-AA1E-0697F1B7D5EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {127F19D6-16B9-4B5E-88F5-4C20C03327E5}
+		SolutionGuid = {C5B94D83-5380-43F3-A096-2F5A1B9CE9F9}
 	EndGlobalSection
 EndGlobal
