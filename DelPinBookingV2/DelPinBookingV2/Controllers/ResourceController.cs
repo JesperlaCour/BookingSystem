@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DelPinBooking.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using ResourceAPI.Models;
 
 namespace DelPinBookingV2.Controllers
 {
@@ -33,7 +34,7 @@ namespace DelPinBookingV2.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var data = response.Content.ReadAsAsync<IEnumerable<Event>>().Result;
+                var data = response.Content.ReadAsAsync<IEnumerable<Resource>>().Result;
                 return Json(data);
             }
             else
