@@ -146,8 +146,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedEvent != null) {
             $('#hdEventID').val(selectedEvent.eventID);
             $('#txtSubject').val(selectedEvent.title);
-            $('#txtStart').val(selectedEvent.start.toISOString());            
-            $('#txtEnd').val(selectedEvent.end.toISOString());
+            var start = selectedEvent.start;
+            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+            start = start.toISOString().slice(0, 16);
+            console.log(start);
+            var end = selectedEvent.end;
+            end.setMinutes(end.getMinutes() - end.getTimezoneOffset());
+            end = end.toISOString().slice(0, 16);
+            console.log(end);
+
+            $('#txtStart').val(start);
+            
+            $('#txtEnd').val(end);
         }
         $('#DetailModal').modal('hide');
         $('#EditModal').modal();
