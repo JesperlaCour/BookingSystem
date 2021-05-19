@@ -116,15 +116,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    //Create new events
     function CreateNewEvent() {
-        if (confirm('Dato fra ' + selectedEvent.startStr + ' til ' + selectedEvent.endStr + ' på ressource ' + selectedEvent.resource.id)) {
+
+        if (selectedEvent != null) {
+            var start = selectedEvent.start;
+            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+            start = start.toISOString().slice(0, 16);
+            console.log(start);
+            var end = selectedEvent.end;
+            end.setMinutes(end.getMinutes() - end.getTimezoneOffset());
+            end = end.toISOString().slice(0, 16);
+            console.log(end);
+            $('#txtStart').val(start);
+            $('#txtEnd').val(end);
+            $('#CreateModal').modal();
+        }
+    }
+
+    $('#btnCreateSave').click(function () {
+        var title = $("#txtTitle").val();
+        console.log(title)
+        var startDate = $('#txtStart').val();
+        var endDate = $('#txtEnd').val();
+        if (selectedEvent != null) {
             var object = new Object();
             object.resourceId = selectedEvent.resource.id;
             object.customerId = null;
             object.allDay = false;
-            object.start = selectedEvent.startStr;
-            object.end = selectedEvent.endStr;
-            object.title = "Ragnar";
+            object.start = startDate;
+            object.end = endDate;
+            object.title = title;
             object.addressId = 1;
             console.log(object);
             $.ajax({
@@ -133,12 +155,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 dataType: "JSON",
                 data: object,
                 success: function (result) {
-                    alert("Updated id: " + result)
+                    alert("Event created: " + result)
+                    $('#CreateModal').modal('hide');
                     RenderCalendar();
                 }
             })
         }
-    }
+    })
     
 
     $("#btnEdit").click(function () {
