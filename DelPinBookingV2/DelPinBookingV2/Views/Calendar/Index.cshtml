@@ -28,13 +28,14 @@
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
-                <button id="btnDelete" class="btn btn-default btn-sm pull-left">
-                    <span class="glyphicon glyphicon-remove"></span> Remove
-                </button>
-                <button id="btnEdit" class="btn btn-default btn-sm pull-left" style="margin-right:5px;">
-                    <span class="glyphicon glyphicon-pencil"></span> Edit
-                </button>
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                <div class="pull-left">
+                    <button id="btnDelete" class="btn btn-default">Delete</button>
+                    <button id="btnEdit" class="btn btn-default" style="margin-right:5px;">Edit</button>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -43,7 +44,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
     <link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
-    <link href='css/bootstrap.css' rel="stylesheet" />
     <script src='fullcalendar-scheduler/main.js'></script>
     <script src='fullcalendar-scheduler/locales/da.js'></script>
     <script src="~/js/Calendar.js" asp-append-version="true"></script>
