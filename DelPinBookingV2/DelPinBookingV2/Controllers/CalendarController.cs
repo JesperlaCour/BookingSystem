@@ -24,6 +24,7 @@ namespace DelPinBooking.Controllers
             return View();
         }
 
+        [HttpGet]
         public JsonResult GetCalendarEvents()
         {
             client = new HttpClient();
@@ -40,24 +41,6 @@ namespace DelPinBooking.Controllers
             }
             else
                 return null;
-
-            //var result = await client.GetFromJsonAsync<Event>(url);
-            //return result;
-
-
-            //var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-            //string jsonString = JsonSerializer.ses(responseData);
-            //Event[] events = new Event[1];
-            //events[0] = new Event
-            //{
-            //    Id = 1,
-            //    ResourceId = 1,
-            //    Title = "John",
-            //    AllDay = false,
-            //    Start = "2021-05-13T12:30:00",
-            //    End = "2021-05-13T14:30:00"
-            //};
-            //return Json(events);
         }
 
         [HttpPut]
@@ -69,6 +52,19 @@ namespace DelPinBooking.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             
             var postTask = client.PutAsJsonAsync<Event>($"Events/"+e.Id, e);
+            postTask.Wait();
+            return Json(e.Id);
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteEvent(Event e)
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var postTask = client.DeleteAsync($"Events/" + e.Id);
             postTask.Wait();
             return Json(e.Id);
         }
