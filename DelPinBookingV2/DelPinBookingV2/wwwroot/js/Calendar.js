@@ -39,7 +39,6 @@
                         success: function (result) {
                             alert("Updated id: " + result)
                         }
-                        $("#calendar").fullCalendar("rerenderEvents");
                     })
                     
 
