@@ -51,7 +51,7 @@ namespace DelPinBooking.Controllers
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             
-            var postTask = client.PutAsJsonAsync<Event>($"Events/"+e.Id, e);
+            var postTask = client.PutAsJsonAsync<Event>($"Events/" + e.Id, e);
             postTask.Wait();
             return Json(e.Id);
         }

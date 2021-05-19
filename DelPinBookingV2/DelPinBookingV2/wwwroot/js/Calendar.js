@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿
+document.addEventListener('DOMContentLoaded', function () {
     var selectedEvent = null;
     var calendarEl = document.getElementById('calendar');
 
@@ -21,36 +22,30 @@
             resourceAreaWidth: "20%",
 
             select: function (info) {
-                if (confirm('Dato fra ' + info.startStr + ' til ' + info.endStr + ' på ressource ' + info.resource.id)) {
-                    var object = new Object();
-                    object.resourceId = info.resource.id;
-                    object.customerId = null;
-                    object.allDay = false;
-                    object.start = info.startStr;
-                    object.end = info.endStr;
-                    object.title = "Ragnar";
-                    object.addressId = 1;
-                    console.log(object);
-                    $.ajax({
-                        url: "Calendar/CreateEvent",
-                        type: "POST",
-                        dataType: "JSON",
-                        data: object,
-                        success: function (result) {
-                            alert("Updated id: " + result)
-                        }
-                    })
-                    
+                selectedEvent = info;
+                console.log(selectedEvent);
+                CreateNewEvent()
 
-                    //calendar.addEvent(
-                    //    {
-                    //        resourceId: info.resource.id,
-                    //        allDay: false,
-                    //        title: 'Ny event',
-                    //        start: info.startStr,
-                    //        end: info.endStr
-                    //    })
-                }
+                //if (confirm('Dato fra ' + info.startStr + ' til ' + info.endStr + ' på ressource ' + info.resource.id)) {
+                //    var object = new Object();
+                //    object.resourceId = info.resource.id;
+                //    object.customerId = null;
+                //    object.allDay = false;
+                //    object.start = info.startStr;
+                //    object.end = info.endStr;
+                //    object.title = "Ragnar";
+                //    object.addressId = 1;
+                //    console.log(object);
+                //    $.ajax({
+                //        url: "Calendar/CreateEvent",
+                //        type: "POST",
+                //        dataType: "JSON",
+                //        data: object,
+                //        success: function (result) {
+                //            alert("Updated id: " + result)
+                //        }
+                //    })
+                //}
             },
            
 
@@ -105,25 +100,67 @@
             eventClick: function (info) {
                 console.log("Fejler her", info, typeof info);
                 selectedEvent = info.event;
-                $("#myModal #eventTitle").text(info.event.title);
+                $("#DetailModal #eventTitle").text(info.event.title);
                 var $description = $("<div/>");
                 $description.append($("<p/>").html("<b>EventID: </b>" + info.event.id));
                 $description.append($("<p/>").html("<b>Start: </b>" + info.event.start.toLocaleString()));
                 if (info.event.end != null) {
                     $description.append($("<p/>").html("<b>End: </b>" + info.event.end.toLocaleString()));
                 }
-                $("#myModal #pDetails").empty().html($description);
-                $("#myModal").modal();
+                $("#DetailModal #pDetails").empty().html($description);
+                $("#DetailModal").modal();
             }
 
         });
         calendar.render();
 
     }
+
+    function CreateNewEvent() {
+        if (confirm('Dato fra ' + selectedEvent.startStr + ' til ' + selectedEvent.endStr + ' på ressource ' + selectedEvent.resource.id)) {
+            var object = new Object();
+            object.resourceId = selectedEvent.resource.id;
+            object.customerId = null;
+            object.allDay = false;
+            object.start = selectedEvent.startStr;
+            object.end = selectedEvent.endStr;
+            object.title = "Ragnar";
+            object.addressId = 1;
+            console.log(object);
+            $.ajax({
+                url: "Calendar/CreateEvent",
+                type: "POST",
+                dataType: "JSON",
+                data: object,
+                success: function (result) {
+                    alert("Updated id: " + result)
+                    RenderCalendar();
+                }
+            })
+        }
+    }
     
 
     $("#btnEdit").click(function () {
-        //Open modal for selected event
+        console.log(selectedEvent);
+        if (selectedEvent != null) {
+            $('#hdEventID').val(selectedEvent.eventID);
+            $('#txtSubject').val(selectedEvent.title);
+            var start = selectedEvent.start;
+            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+            start = start.toISOString().slice(0, 16);
+            console.log(start);
+            var end = selectedEvent.end;
+            end.setMinutes(end.getMinutes() - end.getTimezoneOffset());
+            end = end.toISOString().slice(0, 16);
+            console.log(end);
+
+            $('#txtStart').val(start);
+            
+            $('#txtEnd').val(end);
+        }
+        $('#DetailModal').modal('hide');
+        $('#EditModal').modal();
     })
 
     $("#btnDelete").click(function () {
@@ -138,16 +175,46 @@
                 dataType: "JSON",
                 data: object,
                 success: function (result) {
-                    $('#myModal').modal('hide');
+                    $('#DetailModal').modal('hide');
                     alert("Booking slettet");
-
+                    RenderCalendar();
                 }
                 //error: function (result) {
                 //    alert("Fejl i sletning af booking")
                 //}
             })
         }
-        RenderCalendar();
+        
+        
+    })
+
+    $("#btnSave").click(function () {
+        console.log(selectedEvent);
+        var startDate = $('#txtStart').val();
+        var endDate = $('#txtEnd').val();
+        if (startDate > endDate) {
+            alert('Invalid end date');
+            return;
+        }
+        var object = new Object();
+        object.start = startDate
+        object.end = endDate
+        object.title = selectedEvent.title;
+        object.id = selectedEvent.id;
+        object.resourceId = selectedEvent._def.resourceIds;
+        object.allDay = selectedEvent.allDay;
+        object.addressId = 1;
+        console.log(object);
+        $.ajax({
+            url: "Calendar/UpdateEvent",
+            type: "PUT",
+            dataType: "JSON",
+            data: object,
+            success: function (result) {
+                $('#EditModal').modal('hide');
+                RenderCalendar();
+            }
+        })
         
     })
 
