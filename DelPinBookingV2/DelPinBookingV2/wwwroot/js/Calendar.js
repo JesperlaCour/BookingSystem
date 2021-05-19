@@ -128,8 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
             end.setMinutes(end.getMinutes() - end.getTimezoneOffset());
             end = end.toISOString().slice(0, 16);
             console.log(end);
-            $('#txtStart2').val(start);
-            $('#txtEnd2').val(end);
+            $('#txtCreateStart').val(start);
+            $('#txtCreateEnd').val(end);
             $('#CreateModal').modal();
         }
     }
@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#btnCreateSave').click(function () {
         var title = $("#txtTitle").val();
         console.log(title)
-        var startDate = $('#txtStart2').val();
-        var endDate = $('#txtEnd2').val();
+        var startDate = $('#txtCreateStart').val();
+        var endDate = $('#txtCreateEnd').val();
         if (selectedEvent != null) {
             var object = new Object();
             object.resourceId = selectedEvent.resource.id;
