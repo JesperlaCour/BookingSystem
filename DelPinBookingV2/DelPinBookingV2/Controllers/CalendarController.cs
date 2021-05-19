@@ -69,5 +69,17 @@ namespace DelPinBooking.Controllers
             return Json(e.Id);
         }
 
+        [HttpPost]
+        public ActionResult CreateEvent(Event e)
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var postTask = client.PostAsJsonAsync<Event>($"Events", e);
+            postTask.Wait();
+            return Json(e.Id);
+        }
     }
 }

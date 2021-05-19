@@ -22,16 +22,38 @@
 
             select: function (info) {
                 if (confirm('Dato fra ' + info.startStr + ' til ' + info.endStr + ' på ressource ' + info.resource.id)) {
-                    calendar.addEvent(
-                        {
-                            resourceId: info.resource.id,
-                            allDay: false,
-                            title: 'Ny event',
-                            start: info.startStr,
-                            end: info.endStr
-                        })
+                    var object = new Object();
+                    object.resourceId = info.resource.id;
+                    object.customerId = null;
+                    object.allDay = false;
+                    object.start = info.startStr;
+                    object.end = info.endStr;
+                    object.title = "Ragnar";
+                    object.addressId = 1;
+                    console.log(object);
+                    $.ajax({
+                        url: "Calendar/CreateEvent",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: object,
+                        success: function (result) {
+                            alert("Updated id: " + result)
+                        }
+                        $("#calendar").fullCalendar("rerenderEvents");
+                    })
+                    
+
+                    //calendar.addEvent(
+                    //    {
+                    //        resourceId: info.resource.id,
+                    //        allDay: false,
+                    //        title: 'Ny event',
+                    //        start: info.startStr,
+                    //        end: info.endStr
+                    //    })
                 }
             },
+           
 
             buttonText: {
                 month: 'måned',
