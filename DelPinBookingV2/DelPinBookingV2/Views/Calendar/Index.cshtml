@@ -5,12 +5,11 @@
         background-color: #2c3e50;
         color: white;
     }
+
     .close {
         color: #dedede;
     }
-
 </style>
-
 
 <h1>DelPin Booking1</h1>
 <div id='calendar'></div>
@@ -24,7 +23,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                
+
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
@@ -35,7 +34,7 @@
                 <div class="pull-right">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -57,9 +56,9 @@
                         <input type="text" id="txtSubject" class="form-control" disabled />
                     </div>
                     <div class="form-group">
-                        <label>Start</label>
+                        <label class="control-label">Start</label>
                         <div class="input-group date" id="dtp1">
-                            <input type="text" id="txtStart" class="form-control" />
+                            <input type="datetime-local" id="txtStart" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -68,15 +67,15 @@
                     <div class="form-group">
                         <label>End</label>
                         <div class="input-group date" id="dtp2">
-                            <input type="text" id="txtEnd" class="form-control" />
+                            <input type="datetime-local" id="txtEnd" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>
                 </form>
-            <p id="pDetails"></p>
-        </div>
+                <p id="pDetails"></p>
+            </div>
             <div class="modal-footer">
                 <div class="pull-left">
                     <button id="btnSave" class="btn btn-succes">Save</button>
@@ -92,13 +91,12 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
-    <script src='fullcalendar-scheduler/main.js'></script>
-    <script src='fullcalendar-scheduler/locales/da.js'></script>
-    <script src="~/js/Calendar.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
+<script src='fullcalendar-scheduler/main.js'></script>
+<script src='fullcalendar-scheduler/locales/da.js'></script>
+<script src="~/js/Calendar.js" asp-append-version="true"></script>
 
-     
 
 
 

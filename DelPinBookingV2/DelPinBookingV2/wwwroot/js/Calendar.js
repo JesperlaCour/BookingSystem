@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿
+document.addEventListener('DOMContentLoaded', function () {
     var selectedEvent = null;
     var calendarEl = document.getElementById('calendar');
 
@@ -145,8 +146,8 @@
         if (selectedEvent != null) {
             $('#hdEventID').val(selectedEvent.eventID);
             $('#txtSubject').val(selectedEvent.title);
-            $('#txtStart').val(selectedEvent.startStr);            
-            $('#txtEnd').val(selectedEvent.endStr);
+            $('#txtStart').val(selectedEvent.start.toISOString());            
+            $('#txtEnd').val(selectedEvent.end.toISOString());
         }
         $('#DetailModal').modal('hide');
         $('#EditModal').modal();
