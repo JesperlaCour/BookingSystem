@@ -21,34 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             resourceAreaWidth: "15%",
 
-            select: function (info) {
-                selectedEvent = info;
-                console.log(selectedEvent);
-                CreateNewEvent()
-
-                //if (confirm('Dato fra ' + info.startStr + ' til ' + info.endStr + ' på ressource ' + info.resource.id)) {
-                //    var object = new Object();
-                //    object.resourceId = info.resource.id;
-                //    object.customerId = null;
-                //    object.allDay = false;
-                //    object.start = info.startStr;
-                //    object.end = info.endStr;
-                //    object.title = "Ragnar";
-                //    object.addressId = 1;
-                //    console.log(object);
-                //    $.ajax({
-                //        url: "Calendar/CreateEvent",
-                //        type: "POST",
-                //        dataType: "JSON",
-                //        data: object,
-                //        success: function (result) {
-                //            alert("Updated id: " + result)
-                //        }
-                //    })
-                //}
-            },
-           
-
             buttonText: {
                 month: 'måned',
                 week: 'uge',
@@ -68,49 +40,27 @@ document.addEventListener('DOMContentLoaded', function () {
             //filterResourcesWithEvents: true,
 
             weekNumberCalculation: "ISO",
+
+            //Resources/events call
             resources: "Resource/getCalendarResources",
             events: "Calendar/getCalendarEvents",
 
-
-            eventResize: function (info) {
-                console.log("EventResize");
-                alert("Event is resized");
-                var object = new Object();
-                object.start = info.event.startStr;
-                object.end = info.event.endStr;
-                object.title = info.event.title;
-                object.id = info.event.id;
-                object.resourceId = info.event._def.resourceIds
-                object.allDay = info.event.allDay;
-                object.addressId = 1;
-                console.log(object.id);
-                console.log(info);
-                console.log(info.event.resourcesIds)
-                $.ajax({
-                    url: "Calendar/UpdateEvent",
-                    type: "PUT",
-                    dataType: "JSON",
-                    data: object,
-                    success: function (result) {
-                        alert("Updated id: " + result)
-                    }
-                })
+            select: function (info) {
+                selectedEvent = info;
+                //console.log(selectedEvent);
+                CreateNewEvent()
             },
 
-            eventClick: function (info) {
-                console.log("Fejler her", info, typeof info);
+            eventResize: function (info) {
                 selectedEvent = info.event;
-                $("#DetailModal #eventTitle").text(info.event.title);
-                var $description = $("<div/>");
-                $description.append($("<p/>").html("<b>EventID: </b>" + info.event.id));
-                $description.append($("<p/>").html("<b>Start: </b>" + info.event.start.toLocaleString()));
-                if (info.event.end != null) {
-                    $description.append($("<p/>").html("<b>End: </b>" + info.event.end.toLocaleString()));
-                }
-                $("#DetailModal #pDetails").empty().html($description);
-                $("#DetailModal").modal();
+                //console.log(selectedEvent);
+                UpdateExistingEvent();
+                
+            },
+            eventClick: function (info) {
+                selectedEvent = info.event;
+                EventClick();
             }
-
         });
         calendar.render();
 
@@ -120,126 +70,163 @@ document.addEventListener('DOMContentLoaded', function () {
     function CreateNewEvent() {
 
         if (selectedEvent != null) {
-            var start = selectedEvent.start;
-            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
-            start = start.toISOString().slice(0, 16);
-            console.log(start);
-            var end = selectedEvent.end;
-            end.setMinutes(end.getMinutes() - end.getTimezoneOffset());
-            end = end.toISOString().slice(0, 16);
-            console.log(end);
-            $('#txtCreateStart').val(start);
-            $('#txtCreateEnd').val(end);
+            $('#txtCreateStart').val(toDatetimeLocal(selectedEvent.start));
+            $('#txtCreateEnd').val(toDatetimeLocal(selectedEvent.end));
             $('#CreateModal').modal();
         }
     }
 
+    //function to change from selected datetime in calendar to datetime-local used in modal-forms
+    function toDatetimeLocal(time) {
+        time.setMinutes(time.getMinutes() - time.getTimezoneOffset());
+        time = time.toISOString().slice(0, 16);
+        return time;
+    }
+
+    //Update Existing event
+    function UpdateExistingEvent() {
+        if (selectedEvent != null) {
+            var eventObject = {
+                start: selectedEvent.startStr,
+                end: selectedEvent.endStr,
+                title: selectedEvent.title,
+                id: selectedEvent.id,
+                resourceId: selectedEvent._def.resourceIds,
+                allDay: selectedEvent.allDay,
+                addressId: 1
+            };
+            //console.log(eventObject);
+            $.ajax({
+                url: "Calendar/UpdateEvent",
+                type: "PUT",
+                dataType: "JSON",
+                data: eventObject,
+                success: function (result) {
+                    AlertModal("Updated id: " + result)
+                },
+                error: function (result) {
+                    AlertModal("Fejl i opdatering");
+                }
+            })
+        }
+
+    }
+
+    //shows details about event when clicked
+    function EventClick() {
+        $("#DetailModal #eventTitle").text(selectedEvent.title);
+        var $description = $("<div/>");
+        $description.append($("<p/>").html("<b>EventID: </b>" + selectedEvent.id));
+        $description.append($("<p/>").html("<b>Start: </b>" + selectedEvent.start.toLocaleString()));
+        $description.append($("<p/>").html("<b>End: </b>" + selectedEvent.end.toLocaleString()));
+        $("#DetailModal #pDetails").empty().html($description);
+        $("#DetailModal").modal();
+    }
+
+    //alert box (modal)(takes string as parameter)
+    function AlertModal(strText) {
+        $("#alertText").text(strText);
+        $("#AlertModal").modal();
+    }
+
+    //saves new event
     $('#btnCreateSave').click(function () {
-        var title = $("#txtTitle").val();
-        console.log(title)
+        //var title = $("#txtTitle").val();
+        //console.log(title)
         var startDate = $('#txtCreateStart').val();
         var endDate = $('#txtCreateEnd').val();
         if (selectedEvent != null) {
-            var object = new Object();
-            object.resourceId = selectedEvent.resource.id;
-            object.customerId = null;
-            object.allDay = false;
-            object.start = startDate;
-            object.end = endDate;
-            object.title = title;
-            object.addressId = 1;
-            console.log(object);
+            var newEvent = {
+                resourceId: selectedEvent.resource.id,
+                customerId: null,
+                allDay: false,
+                start: startDate,
+                end: endDate,
+                title: $("#txtTitle").val(),
+                addressId: 1
+            }
+            //console.log(newEvent);
             $.ajax({
                 url: "Calendar/CreateEvent",
                 type: "POST",
                 dataType: "JSON",
-                data: object,
+                data: newEvent,
                 success: function (result) {
-                    alert("Event created: " + result)
+                    AlertModal("Event created")
                     $('#CreateModal').modal('hide');
-                    RenderCalendar();
+                     RenderCalendar();
+                },
+                error: function (result) {
+                    AlertModal("Fejl i oprettelse af booking");
                 }
             })
         }
     })
-    
 
     $("#btnEdit").click(function () {
         console.log(selectedEvent);
         if (selectedEvent != null) {
+            $("#EditTitle").text("Edit");
             $('#hdEventID').val(selectedEvent.eventID);
             $('#txtSubject').val(selectedEvent.title);
-            var start = selectedEvent.start;
-            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
-            start = start.toISOString().slice(0, 16);
-            console.log(start);
-            var end = selectedEvent.end;
-            end.setMinutes(end.getMinutes() - end.getTimezoneOffset());
-            end = end.toISOString().slice(0, 16);
-            console.log(end);
-
-            $('#txtStart').val(start);
-            
-            $('#txtEnd').val(end);
+            $('#txtStart').val(toDatetimeLocal(selectedEvent.start));
+            $('#txtEnd').val(toDatetimeLocal(selectedEvent.end));
         }
         $('#DetailModal').modal('hide');
         $('#EditModal').modal();
     })
 
     $("#btnDelete").click(function () {
-        console.log(selectedEvent);
+        //console.log(selectedEvent);
         if (selectedEvent != null && confirm("Vil du slette bookingen")) {
-            var object = new Object();
-            object.id = selectedEvent.id;
-            console.log(object);
+            var deletedEvent = { id: selectedEvent.id }
+            //console.log(object);
             $.ajax({
                 url: "Calendar/DeleteEvent",
                 type: "DELETE",
                 dataType: "JSON",
-                data: object,
+                data: deletedEvent,
                 success: function (result) {
                     $('#DetailModal').modal('hide');
-                    alert("Booking slettet");
+                    AlertModal("Booking " + deletedEvent.id + " slettet");
                     RenderCalendar();
+                },
+                error: function (result) {
+                    AlertModal("Fejl i sletning af booking")
                 }
-                //error: function (result) {
-                //    alert("Fejl i sletning af booking")
-                //}
             })
         }
-        
-        
     })
-
     $("#btnSave").click(function () {
-        console.log(selectedEvent);
+        //console.log(selectedEvent);
         var startDate = $('#txtStart').val();
         var endDate = $('#txtEnd').val();
         if (startDate > endDate) {
-            alert('Invalid end date');
+            AlertModal('Invalid end date');
             return;
         }
-        var object = new Object();
-        object.start = startDate
-        object.end = endDate
-        object.title = selectedEvent.title;
-        object.id = selectedEvent.id;
-        object.resourceId = selectedEvent._def.resourceIds;
-        object.allDay = selectedEvent.allDay;
-        object.addressId = 1;
-        console.log(object);
+        var SaveEvent = {
+            start: startDate,
+            end: endDate,
+            title: selectedEvent.title,
+            id: selectedEvent.id,
+            resourceId: selectedEvent._def.resourceIds,
+            allDay: selectedEvent.allDay,
+            addressId: 1
+        };
         $.ajax({
             url: "Calendar/UpdateEvent",
             type: "PUT",
             dataType: "JSON",
-            data: object,
+            data: SaveEvent,
             success: function (result) {
+                AlertModal("Ændring gemt");
                 $('#EditModal').modal('hide');
                 RenderCalendar();
+            },
+            error: function (result) {
+                AlertModal("Fejl - ændring ikke gemt");
             }
         })
-        
     })
-
-
 });
