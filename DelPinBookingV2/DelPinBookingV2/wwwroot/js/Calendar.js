@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     duration: { days: 4 }
                 }
             },
-            resourceAreaWidth: "20%",
+            resourceAreaWidth: "15%",
 
             select: function (info) {
                 selectedEvent = info;
