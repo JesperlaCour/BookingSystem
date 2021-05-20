@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             },
             resourceAreaWidth: "15%",
-
+            height: 'auto',
             buttonText: {
                 month: 'måned',
                 week: 'uge',
