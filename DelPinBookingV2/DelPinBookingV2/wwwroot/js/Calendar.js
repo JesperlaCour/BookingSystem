@@ -57,6 +57,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 UpdateExistingEvent();
                 
             },
+            eventDrop: function (info) {
+                selectedEvent = info.event;
+                UpdateExistingEvent();
+            },
             eventClick: function (info) {
                 selectedEvent = info.event;
                 EventClick();
