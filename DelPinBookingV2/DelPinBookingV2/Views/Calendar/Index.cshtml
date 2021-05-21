@@ -96,7 +96,7 @@
             <form id="UpdateForm" asp-controller="Calendar" asp-action="UpdateEvent" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title"><span id="EditTitle"></span></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="reset" id="btnEditClose" class="close">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -131,7 +131,7 @@
                         <button type="submit" id="btnSave" class="btn btn-succes">Save</button>
                     </div>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="reset" id="btnEditCloseFooter" class="btn btn-default">Close</button>
                     </div>
 
                 </div>
@@ -141,7 +141,7 @@
 </div>
 
 @*Delete modal*@
-<<div id="DeleteModal" class="modal fade" role="dialog">
+<div id="DeleteModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

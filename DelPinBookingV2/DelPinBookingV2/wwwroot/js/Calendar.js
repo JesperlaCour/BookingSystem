@@ -236,10 +236,10 @@ document.addEventListener('DOMContentLoaded', function () {
         //}
     })
 
-    //$("btnEditClose").click(function () {
-    //    $("EditModal").modal("hide");
-    //    RenderCalendar();
-    //})
+    $("#btnEditClose, #btnEditCloseFooter").click(function () {
+        $("#EditModal").modal("hide");
+        RenderCalendar();
+    })
     //$("#btnSave").click(function () {
     //    //console.log(selectedEvent);
     //    var startDate = $('#txtStart').val();
