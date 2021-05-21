@@ -45,8 +45,8 @@ namespace DelPinBooking.Controllers
             else
                 return null;
         }
-        
-        [HttpPut]
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateEvent(Event e)
         {
@@ -57,20 +57,7 @@ namespace DelPinBooking.Controllers
             
             var postTask = client.PutAsJsonAsync<Event>($"Events/" + e.Id, e);
             postTask.Wait();
-            return Json(e.Id);
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteEvent(Event e)
-        {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var postTask = client.DeleteAsync($"Events/" + e.Id);
-            postTask.Wait();
-            return Json(e.Id);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -90,9 +77,20 @@ namespace DelPinBooking.Controllers
 
             return RedirectToAction("Index");
 
-            //return Ok();
-            //return View("Index");
-            //return Json(e.Id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteEvent(int? id)
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var postTask = client.DeleteAsync($"Events/" + id);
+            postTask.Wait();
+            return RedirectToAction("Index");
         }
     }
 }
