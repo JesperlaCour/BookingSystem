@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DelPinBooking.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using DelPinBookingV2.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -12,6 +14,7 @@ using System.Net.Http.Headers;
 
 namespace DelPinBooking.Controllers
 {
+    
     public class CalendarController : Controller
     {
         HttpClient client;
@@ -42,8 +45,9 @@ namespace DelPinBooking.Controllers
             else
                 return null;
         }
-
+        
         [HttpPut]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateEvent(Event e)
         {
             client = new HttpClient();
@@ -70,16 +74,25 @@ namespace DelPinBooking.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateEvent(Event e)
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (ModelState.IsValid)
+            {
+                client = new HttpClient();
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var postTask = client.PostAsJsonAsync<Event>($"Events", e);
-            postTask.Wait();
-            return Json(e.Id);
+                var postTask = client.PostAsJsonAsync<Event>($"Events", e);
+                postTask.Wait();
+            }
+
+            return RedirectToAction("Index");
+
+            //return Ok();
+            //return View("Index");
+            //return Json(e.Id);
         }
     }
 }
