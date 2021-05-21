@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function CreateNewEvent() {
 
         if (selectedEvent != null) {
+            $("#eventTitle").text("Ny booking");
             $('#txtCreateStart').val(toDatetimeLocal(selectedEvent.start));
             $('#txtCreateEnd').val(toDatetimeLocal(selectedEvent.end));
             $('#CreateModal').modal();
@@ -135,10 +136,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //saves new event
     $('#btnCreateSave').click(function () {
-        //var title = $("#txtTitle").val();
-        //console.log(title)
         var startDate = $('#txtCreateStart').val();
-        var endDate = $('#txtCreateEnd').val();
+        var endDate = $('#txtCreateEnd').val();        
+        if (startDate >= endDate) {
+            AlertModal('Invalid end date');
+            return;
+        }
         if (selectedEvent != null) {
             var newEvent = {
                 resourceId: selectedEvent.resource.id,
@@ -205,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //console.log(selectedEvent);
         var startDate = $('#txtStart').val();
         var endDate = $('#txtEnd').val();
-        if (startDate > endDate) {
+        if (startDate >= endDate) {
             AlertModal('Invalid end date');
             return;
         }
