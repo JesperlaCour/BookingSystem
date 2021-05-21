@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DelPinBooking.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using DelPinBookingV2.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DelPinBooking.Controllers
 {
+
     [Authorize]
     public class CalendarController : Controller
     {
@@ -45,7 +48,8 @@ namespace DelPinBooking.Controllers
                 return null;
         }
 
-        [HttpPut]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateEvent(Event e)
         {
             client = new HttpClient();
@@ -55,33 +59,40 @@ namespace DelPinBooking.Controllers
             
             var postTask = client.PutAsJsonAsync<Event>($"Events/" + e.Id, e);
             postTask.Wait();
-            return Json(e.Id);
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteEvent(Event e)
-        {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var postTask = client.DeleteAsync($"Events/" + e.Id);
-            postTask.Wait();
-            return Json(e.Id);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateEvent(Event e)
+        {
+            if (ModelState.IsValid)
+            {
+                client = new HttpClient();
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var postTask = client.PostAsJsonAsync<Event>($"Events", e);
+                postTask.Wait();
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteEvent(int? id)
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var postTask = client.PostAsJsonAsync<Event>($"Events", e);
+            var postTask = client.DeleteAsync($"Events/" + id);
             postTask.Wait();
-            return Json(e.Id);
+            return RedirectToAction("Index");
         }
     }
 }

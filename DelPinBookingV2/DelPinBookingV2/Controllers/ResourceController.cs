@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DelPinBooking.Models;
+using DelPinBookingV2.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using ResourceAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DelPinBookingV2.Controllers
