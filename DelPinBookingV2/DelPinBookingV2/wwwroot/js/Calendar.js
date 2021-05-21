@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: newEvent,
                 success: function (result) {
                     AlertModal("Event created")
+                    $("#txtTitle").val("");
                     $('#CreateModal').modal('hide');
                      RenderCalendar();
                 },
