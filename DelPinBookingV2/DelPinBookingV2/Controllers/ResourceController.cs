@@ -7,9 +7,11 @@ using DelPinBooking.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using ResourceAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DelPinBookingV2.Controllers
 {
+    [Authorize]
     public class ResourceController : Controller
     {
         HttpClient client;

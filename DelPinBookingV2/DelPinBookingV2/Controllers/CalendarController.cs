@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using DelPinBooking.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DelPinBooking.Controllers
 {
+    [Authorize]
     public class CalendarController : Controller
     {
         HttpClient client;
