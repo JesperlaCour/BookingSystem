@@ -13,8 +13,16 @@ namespace DelPinBookingV2.Controllers
     [Authorize]
     public class ResourceController : Controller
     {
+        IEnumerable<SubCategory> categories;
+        public ResourceController()
+        {
+           
+            HttpResponseMessage result = NewClient("SubCategories").GetAsync("").Result;
+            categories = result.Content.ReadAsAsync<IEnumerable<SubCategory>>().Result;
+        }
+            
         HttpClient client;
-        string url = "https://localhost:5002/api/Resources";
+        string url = "https://localhost:5002/api/";
 
 
         // GET: /<controller>/
@@ -26,12 +34,12 @@ namespace DelPinBookingV2.Controllers
         [HttpGet]
         public JsonResult GetCalendarResources()
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //client = new HttpClient();
+            //client.BaseAddress = new Uri(url);
+            //client.DefaultRequestHeaders.Accept.Clear();
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("").Result;
+            HttpResponseMessage response = NewClient("Resources").GetAsync("").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -39,12 +47,21 @@ namespace DelPinBookingV2.Controllers
 
                 foreach (var item in data)
                 {
-                    item.groupId = item.SubCategoryId.ToString();
+                    item.groupId = categories.Where(s => s.Id == item.SubCategoryId).FirstOrDefault().SubCategoryName;
                 }
                 return Json(data);
             }
             else
                 return null;
+        }
+
+        public HttpClient NewClient(string action)
+        {
+            var returnClient = new HttpClient { BaseAddress = new Uri(url+action) };
+            returnClient.DefaultRequestHeaders.Accept.Clear();
+            returnClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            return returnClient;
+
         }
 
     }
