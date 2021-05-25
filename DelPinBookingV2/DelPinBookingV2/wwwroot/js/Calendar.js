@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     duration: { days: 4 }
                 }
             },
+            resourceGroupField: 'groupId',
             resourceAreaWidth: "15%",
             height: 'auto',
             buttonText: {

@@ -36,6 +36,11 @@ namespace DelPinBookingV2.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var data = response.Content.ReadAsAsync<IEnumerable<Resource>>().Result;
+
+                foreach (var item in data)
+                {
+                    item.groupId = item.SubCategoryId.ToString();
+                }
                 return Json(data);
             }
             else
