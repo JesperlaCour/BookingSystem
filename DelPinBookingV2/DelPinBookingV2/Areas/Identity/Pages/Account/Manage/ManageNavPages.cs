@@ -12,6 +12,8 @@ namespace DelPinBookingV2.Areas.Identity.Pages.Account.Manage
 
         public static string Email => "Email";
 
+        public static string PhoneNumber => "PhoneNumber";
+
         public static string ChangePassword => "ChangePassword";
 
         public static string DownloadPersonalData => "DownloadPersonalData";
