@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using DelPinBookingV2.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Authorization;
-
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,6 +40,25 @@ namespace DelPinBooking.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var data = response.Content.ReadAsAsync<IEnumerable<Event>>().Result;
+                return Json(data);
+            }
+            else
+                return null;
+        }
+
+        [HttpGet]
+        public JsonResult GetEvent(string id)
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync($"Events/"+ id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var data = response.Content.ReadAsAsync<Event>().Result;
                 return Json(data);
             }
             else

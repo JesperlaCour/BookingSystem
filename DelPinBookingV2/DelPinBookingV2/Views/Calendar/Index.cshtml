@@ -21,15 +21,7 @@
 
 <h1>DelPin Booking1</h1>
 
-
-@*<div class="contain-fluid">
-    <div class="modal-header">
-        <h3 class="panel-title">Filtrer (beta - no function)</h3>
-    </div>
-    <div class="=modal-body">
-        <div class="row">*@
-
-
+@*Prototype af filtrering*@
 <div class="filter col-lg-8">
     <label style="padding-left:38px;">Filtrering (horizontal prototype)</label>
     <form class="form-inline col-lg">
@@ -57,13 +49,7 @@
         </div>
     </form>
 </div>
-            
-        @*</div>
-    </div>
-    
-
-
-</div>*@
+ 
 
 
 <div id='calendar'></div>
@@ -79,10 +65,13 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-
                     <div class="form-group">
                         <label asp-for="Title">Title</label>
                         <input asp-for="Title" type="text" id="txtTitle" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserName">Email</label>
+                        <input asp-for="UserName" type="text" id="UserName" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label asp-for="Start" class="control-label">Start</label>
@@ -96,10 +85,13 @@
                             <input asp-for="End" type="datetime-local" id="txtCreateEnd" class="form-control" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="AddressStr">Addresse</label>
+                        <input class="form-control" type="text" id="adresse" value="" />
+                        <input type="hidden"id="valgtadresse" asp-for="AddressStr" value=""/>
+                    </div>
                     <input type="hidden" id="CreateResourceId" asp-for="ResourceId" value="" />
-                    <input type="hidden" asp-for="AddressId" value="1" />
-
-                </div>
+                  </div>
                 <div class="modal-footer">
                     <div class="pull-left">
                         <button type="submit" id="btnCreateSave" class="btn btn-success">Save</button>
@@ -120,22 +112,39 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                <h4 class="modal-title"><span id="detailTitle"></span></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-
-                <p id="pDetails"></p>
+                <div class="form-group">
+                    <label>Email</label>
+                    <p id="detailUserName" class="form-control"></p>
+                </div>
+                <div class="form-group">
+                    <label>Start</label>
+                    <div class="input-group date">
+                        <p id="detailStart" class="form-control"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>End</label>
+                    <div class="input-group date">
+                        <p id="detailEnd" class="form-control"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Addresse</label>
+                    <p id="detailAddress" class="form-control"></p>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    <button id="btnDelete" class="btn btn-default">Delete</button>
-                    <button id="btnEdit" class="btn btn-default" style="margin-right:5px;">Edit</button>
+                    <button id="btnDelete" class="btn btn-warning">Delete</button>
+                    <button id="btnEdit" class="btn btn-info" style="margin-right:5px;">Edit</button>
                 </div>
                 <div class="pull-right">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -147,7 +156,7 @@
         <div class="modal-content">
             <form id="UpdateForm" asp-controller="Calendar" asp-action="UpdateEvent" method="post">
                 <div class="modal-header">
-                    <h4 class="modal-title"><span id="EditTitle"></span></h4>
+                    <h4 class="modal-title"><span id="editTitle"></span></h4>
                     <button type="reset" id="btnEditClose" class="close">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -173,10 +182,21 @@
                             </span>
                         </div>
                     </div>
-                    <input type="hidden" id="EditId" asp-for="Id" value="" />
-                    <input type="hidden" id="EditResourceId" asp-for="ResourceId" value="" />
-                    <input type="hidden" id="EditCustomerId" asp-for="CustomerId" value="" />
-                    <input type="hidden" id="EditAddressId" asp-for="AddressId" value="1" />
+                    <div class="form-group">
+                        <label asp-for="UserName">Email</label>
+                        <input asp-for="UserName" type="text" id="editUserName" value="" class="form-control" readonly />
+                    </div>
+                    <div>
+                        <label asp-for="AddressStr">Adresse</label>
+                        <div class="input-group">
+                            <input asp-for="AddressStr" type="text" id="editAddressStr" value="" class="form-control" readonly />
+                            <div class="input-group-append">
+                                <button type="button" id="btnChangeAddress" class="btn btn-info">Ændre</button>
+                            </div>
+                            </div>
+                        </div>
+                    <input type="hidden" id="editId" asp-for="Id" value="" />
+                    <input type="hidden" id="editResourceId" asp-for="ResourceId" value="" />
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">
@@ -185,7 +205,6 @@
                     <div class="pull-right">
                         <button type="reset" id="btnEditCloseFooter" class="btn btn-default">Close</button>
                     </div>
-
                 </div>
             </form>
         </div>
@@ -243,13 +262,46 @@
 
 </div>
 
+@*Change address in edit*@
+<div id="changeAddressModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Vælg ny adresse</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nuværende adresse</label>
+                    <input class="form-control" id="ExistingAddress" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Addresse</label>
+                    <input class="form-control" type="text" id="ChangeAddress" value="" />
+                    <input type="hidden" id="NewAddress" value="" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <button type="button" id="NewAddressSave" class="btn btn-success">Save</button>
+                </div>
+                <div class="pull-left">
+                    <button type="button" id="btnDismissNewAddress" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <link href='fullcalendar-scheduler/main.css' rel='stylesheet' />
+<link href='css/site.css' rel='stylesheet' />
 <script src='fullcalendar-scheduler/main.js'></script>
 <script src='fullcalendar-scheduler/locales/da.js'></script>
 <script src="~/js/Calendar.js" asp-append-version="true"></script>
+<script src='dawa-autocomplete2/dist/js/dawa-autocomplete2.min.js'></script>
+
 
 
 
