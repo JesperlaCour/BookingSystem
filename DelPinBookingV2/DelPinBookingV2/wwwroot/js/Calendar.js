@@ -93,16 +93,19 @@ document.addEventListener('DOMContentLoaded', function () {
     //Update Existing event
     function UpdateExistingEvent() {
         console.log(selectedEvent);
-        if (selectedEvent != null) {
-            $("#EditTitle").text("Edit");
-            $("#EditId").val(selectedEvent.id);
-            $('#txtSubject').val(selectedEvent.title);
-            $('#txtStart').val(toDatetimeLocal(selectedEvent.start));
-            $('#txtEnd').val(toDatetimeLocal(selectedEvent.end));
-            $("#EditResourceId").val(selectedEvent._def.resourceIds);
-            $("EditUserName").val(selectedEvent.UserName);
-            $("EditAddressId").val(selectedEvent.addressId);
-        }
+        $.get("Calendar/GetEvent/" + selectedEvent.id, function (data) {
+            if (data != null) {
+                console.log(data);
+                $("#editTitle").text("Edit");
+                $("#editId").val(data.id);
+                $('#txtSubject').val(data.title);
+                $('#txtStart').val(toDatetimeLocal(selectedEvent.start));
+                $('#txtEnd').val(toDatetimeLocal(selectedEvent.end));
+                $("#editResourceId").val(selectedEvent._def.resourceIds);
+                $("#editUserName").val(data.userName);
+                $("#editAddressStr").val(data.addressStr);
+            } 
+        });
         $('#DetailModal').modal('hide');
         $('#EditModal').modal();
     }
@@ -110,12 +113,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //shows details about event when clicked
     function EventClick() {
-        $("#DetailModal #eventTitle").text(selectedEvent.title);
-        var $description = $("<div/>");
-        $description.append($("<p/>").html("<b>EventID: </b>" + selectedEvent.id));
-        $description.append($("<p/>").html("<b>Start: </b>" + selectedEvent.start.toLocaleString()));
-        $description.append($("<p/>").html("<b>End: </b>" + selectedEvent.end.toLocaleString()));
-        $("#DetailModal #pDetails").empty().html($description);
+        $.get("Calendar/GetEvent/" + selectedEvent.id, function (data) {
+            console.log(data)
+            $("#detailTitle").text(data.title)
+            $("#detailUserName").text(data.userName)
+            $("#detailStart").text(data.start)
+            $("#detailEnd").text(data.end)
+            $("#detailAddress").text(data.addressStr)
+        })
         $("#DetailModal").modal();
     }
 
@@ -127,20 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     $("#btnEdit").click(function () {
-        console.log(selectedEvent);
-        if (selectedEvent != null) {
-
-            $("#EditTitle").text("Edit");
-            $("#EditId").val(selectedEvent.id);
-            $('#txtSubject').val(selectedEvent.title);
-            $('#txtStart').val(toDatetimeLocal(selectedEvent.start));
-            $('#txtEnd').val(toDatetimeLocal(selectedEvent.end));
-            $("#EditResourceId").val(selectedEvent._def.resourceIds);
-            $("EditUsername").val(selectedEvent.UserName);
-            $("EditAddressId").val(selectedEvent.addressId);
-        }
-        $('#DetailModal').modal('hide');
-        $('#EditModal').modal();
+        UpdateExistingEvent();
     })
 
     $("#btnDelete").click(function () {
@@ -154,7 +146,45 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     $("#btnEditClose, #btnEditCloseFooter").click(function () {
-        $("#EditModal").modal("hide");
+        $("#EditModal").modal('hide');
         RenderCalendar();
     })
+
+    $("#btnChangeAddress").click(function () {
+        $("#EditModal").modal('hide');
+        $("#changeAddressModal").modal();
+        var existingAddress = $("#editAddressStr").val();
+        console.log(existingAddress);
+        $("#ExistingAddress").val(existingAddress);
+    })
+
+    $("#btnDismissNewAddress").click(function () {
+        $("#EditModal").modal('show');
+        $("#ChangeAddress").val("");
+    })
+
+    $("#NewAddressSave").click(function (data) {
+        $("#editAddressStr").val($("#NewAddress").val())
+        $("#ChangeAddress").val("");
+        $("#changeAddressModal").modal('hide');
+        $("#EditModal").modal('show');
+
+    })
+
+    //dawa autocomplete adresse (https://dataforsyningen.dk/)
+    "use strict"
+    dawaAutocomplete.dawaAutocomplete(document.getElementById("adresse"), {
+        select: function (selected) {
+            $("#valgtadresse").val(selected.tekst);
+        }
+    });
+
+    "use strict"
+    dawaAutocomplete.dawaAutocomplete(document.getElementById("ChangeAddress"), {
+        select: function (selected) {
+            $("#NewAddress").val(selected.tekst);
+        }
+    });
 });
+
+

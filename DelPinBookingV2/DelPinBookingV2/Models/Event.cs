@@ -11,7 +11,7 @@ namespace DelPinBookingV2.Models
         public string Title { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
-        public int AddressId { get; set; }
+        public string AddressStr { get; set; }
 
         public Event()
         {

@@ -46,6 +46,25 @@ namespace DelPinBooking.Controllers
                 return null;
         }
 
+        [HttpGet]
+        public JsonResult GetEvent(string id)
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync($"Events/"+ id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var data = response.Content.ReadAsAsync<Event>().Result;
+                return Json(data);
+            }
+            else
+                return null;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateEvent(Event e)

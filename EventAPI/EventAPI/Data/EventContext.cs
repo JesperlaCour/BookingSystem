@@ -16,8 +16,6 @@ namespace EventAPI.Data
 
         }
         public DbSet<Event> Events { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<ZipCode> ZipCodes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
