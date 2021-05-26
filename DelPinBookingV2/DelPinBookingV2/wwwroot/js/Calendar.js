@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
         editable: true,
         eventOverlap: false,
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-        headerToolbar: { center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek' },
+        headerToolbar: {
+            center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek',
+            right: 'DatePicker,today prev,next'
+        },
         initialView: 'resourceTimelineFourDays',
         views: {
             resourceTimelineFourDays: {
@@ -17,6 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 duration: { days: 4 }
             }
         },
+        customButtons: {
+            DatePicker: {
+                text: 'Vælg dato',
+                click: function () {
+                    $("#chooseDate").modal()
+                }
+            }
+        },  
         resourceGroupField: 'groupId',
         resourceAreaWidth: "15%",
         height: 'auto',
@@ -183,6 +194,16 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#NewAddress").val(selected.tekst);
         }
     });
+
+    //datetime picker
+
+    $("#btnChooseDate").click(function () {
+        var date = document.getElementById("datetimePicker");
+        console.log(date.value)
+        calendar.gotoDate(date.value)
+        $("#chooseDate").modal('hide')
+    })
+
 });
 
 
