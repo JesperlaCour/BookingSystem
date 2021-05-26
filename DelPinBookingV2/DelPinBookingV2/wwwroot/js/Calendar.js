@@ -3,73 +3,71 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectedEvent = null;
     var calendarEl = document.getElementById('calendar');
 
-    RenderCalendar();
-    function RenderCalendar() {
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            selectable: true,
-            editable: true,
-            eventOverlap: false,
-            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-            headerToolbar: { center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek' },
-            initialView: 'resourceTimelineFourDays',
-            views: {
-                resourceTimelineFourDays: {
-                    buttontext: '4 dage',
-                    type: 'resourceTimeline',
-                    duration: { days: 4 }
-                }
-            },
-            resourceGroupField: 'groupId',
-            resourceAreaWidth: "15%",
-            height: 'auto',
-            buttonText: {
-                month: 'måned',
-                week: 'uge',
-                day: 'dag',
-                resourceTimelineFourDays: '4 dage'
-            },
-            nowIndicator: true,
-            businessHours: {
-                // days of week. an array of zero-based day of week integers (0=Sunday)
-                daysOfWeek: [1, 2, 3, 4, 5], // Monday - Friday
-
-                startTime: '8:00', // a start time (8am in this example)
-                endTime: '17:00', // an end time (5pm in this example)
-            },
-
-            locale: 'da',
-            //filterResourcesWithEvents: true,
-
-            weekNumberCalculation: "ISO",
-
-            //Resources/events call
-            resources: "Resource/getCalendarResources",
-            events: "Calendar/getCalendarEvents",
-
-            select: function (info) {
-                selectedEvent = info;
-                //console.log(selectedEvent);
-                CreateNewEvent()
-            },
-
-            eventResize: function (info) {
-                selectedEvent = info.event;
-                //console.log(selectedEvent);
-                UpdateExistingEvent();
-                
-            },
-            eventDrop: function (info) {
-                selectedEvent = info.event;
-                UpdateExistingEvent();
-            },
-            eventClick: function (info) {
-                selectedEvent = info.event;
-                EventClick();
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        selectable: true,
+        editable: true,
+        eventOverlap: false,
+        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+        headerToolbar: { center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek' },
+        initialView: 'resourceTimelineFourDays',
+        views: {
+            resourceTimelineFourDays: {
+                buttontext: '4 dage',
+                type: 'resourceTimeline',
+                duration: { days: 4 }
             }
-        });
-        calendar.render();
+        },
+        resourceGroupField: 'groupId',
+        resourceAreaWidth: "15%",
+        height: 'auto',
+        buttonText: {
+            month: 'måned',
+            week: 'uge',
+            day: 'dag',
+            resourceTimelineFourDays: '4 dage'
+        },
+        nowIndicator: true,
+        businessHours: {
+            // days of week. an array of zero-based day of week integers (0=Sunday)
+            daysOfWeek: [1, 2, 3, 4, 5], // Monday - Friday
 
-    }
+            startTime: '8:00', // a start time (8am in this example)
+            endTime: '17:00', // an end time (5pm in this example)
+        },
+
+        locale: 'da',
+        //filterResourcesWithEvents: true,
+
+        weekNumberCalculation: "ISO",
+
+        //Resources/events call
+        resources: "Resource/getCalendarResources",
+        events: "Calendar/getCalendarEvents",
+
+        select: function (info) {
+            selectedEvent = info;
+            //console.log(selectedEvent);
+            CreateNewEvent()
+        },
+
+        eventResize: function (info) {
+            selectedEvent = info.event;
+            //console.log(selectedEvent);
+            UpdateExistingEvent();
+
+        },
+        eventDrop: function (info) {
+            selectedEvent = info.event;
+            UpdateExistingEvent();
+        },
+        eventClick: function (info) {
+            selectedEvent = info.event;
+            EventClick();
+        }
+    });
+    calendar.render();
+
+
 
     //Create new events
     function CreateNewEvent() {
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("#editResourceId").val(selectedEvent._def.resourceIds);
                 $("#editUserName").val(data.userName);
                 $("#editAddressStr").val(data.addressStr);
-            } 
+            }
         });
         $('#DetailModal').modal('hide');
         $('#EditModal').modal();
@@ -141,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#DeleteId").val(selectedEvent.id);
             $("#DeleteEventTitle").text(selectedEvent.title);
             $("#DeleteModal").modal();
-            
+
         }
     })
 
     $("#btnEditClose, #btnEditCloseFooter").click(function () {
         $("#EditModal").modal('hide');
-        RenderCalendar();
+        calendar.refetchEvents()
     })
 
     $("#btnChangeAddress").click(function () {
@@ -171,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     })
 
-    //dawa autocomplete adresse (https://dataforsyningen.dk/)
+    //DAWA autocomplete adresse (https://dataforsyningen.dk/)
     "use strict"
     dawaAutocomplete.dawaAutocomplete(document.getElementById("adresse"), {
         select: function (selected) {
