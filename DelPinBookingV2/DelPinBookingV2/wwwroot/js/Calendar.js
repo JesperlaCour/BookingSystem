@@ -100,40 +100,13 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#txtStart').val(toDatetimeLocal(selectedEvent.start));
             $('#txtEnd').val(toDatetimeLocal(selectedEvent.end));
             $("#EditResourceId").val(selectedEvent._def.resourceIds);
-            $("EditCustomerId").val(selectedEvent.CustomerId);
+            $("EditUserName").val(selectedEvent.UserName);
             $("EditAddressId").val(selectedEvent.addressId);
         }
         $('#DetailModal').modal('hide');
         $('#EditModal').modal();
     }
 
-
-
-    //    if (selectedEvent != null) {
-    //        var eventObject = {
-    //            start: selectedEvent.startStr,
-    //            end: selectedEvent.endStr,
-    //            title: selectedEvent.title,
-    //            id: selectedEvent.id,
-    //            resourceId: selectedEvent._def.resourceIds,
-    //            allDay: selectedEvent.allDay,
-    //            addressId: 1
-    //        };
-    //        //console.log(eventObject);
-    //        $.ajax({
-    //            url: "Calendar/UpdateEvent",
-    //            type: "PUT",
-    //            dataType: "JSON",
-    //            data: eventObject,
-    //            success: function (result) {
-    //                AlertModal("Updated id: " + result)
-    //            },
-    //            error: function (result) {
-    //                AlertModal("Fejl i opdatering");
-    //            }
-    //        })
-    //    }
-    //}
 
     //shows details about event when clicked
     function EventClick() {
@@ -152,42 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
         $("#AlertModal").modal();
     }
 
-    //saves new event
-    //$('#btnCreateSave').click(function () {
-    //    var startDate = $('#txtCreateStart').val();
-    //    var endDate = $('#txtCreateEnd').val();        
-    //    if (startDate >= endDate) {
-    //        AlertModal('Invalid end date');
-    //        return;
-    //    }
-    //    if (selectedEvent != null) {
-    //        var newEvent = {
-    //            resourceId: selectedEvent.resource.id,
-    //            customerId: null,
-    //            allDay: false,
-    //            start: startDate,
-    //            end: endDate,
-    //            title: $("#txtTitle").val(),
-    //            addressId: 1
-    //        }
-    //        //console.log(newEvent);
-    //        $.ajax({
-    //            url: "Calendar/CreateEvent",
-    //            type: "POST",
-    //            dataType: "JSON",
-    //            data: newEvent,
-    //            success: function (result) {
-    //                AlertModal("Event created")
-    //                $("#txtTitle").val("");
-    //                $('#CreateModal').modal('hide');
-    //                 RenderCalendar();
-    //            },
-    //            error: function (result) {
-    //                AlertModal("Fejl i oprettelse af booking");
-    //            }
-    //        })
-    //    }
-    //})
 
     $("#btnEdit").click(function () {
         console.log(selectedEvent);
@@ -199,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#txtStart').val(toDatetimeLocal(selectedEvent.start));
             $('#txtEnd').val(toDatetimeLocal(selectedEvent.end));
             $("#EditResourceId").val(selectedEvent._def.resourceIds);
-            $("EditCustomerId").val(selectedEvent.CustomerId);
+            $("EditUsername").val(selectedEvent.UserName);
             $("EditAddressId").val(selectedEvent.addressId);
         }
         $('#DetailModal').modal('hide');
@@ -214,63 +151,10 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#DeleteModal").modal();
             
         }
-
-
-        ////console.log(selectedEvent);
-        //if (selectedEvent != null && confirm("Vil du slette bookingen")) {
-        //    var deletedEvent = { id: selectedEvent.id }
-        //    //console.log(object);
-        //    $.ajax({
-        //        url: "Calendar/DeleteEvent",
-        //        type: "DELETE",
-        //        dataType: "JSON",
-        //        data: deletedEvent,
-        //        success: function (result) {
-        //            $('#DetailModal').modal('hide');
-        //            AlertModal("Booking " + deletedEvent.id + " slettet");
-        //            RenderCalendar();
-        //        },
-        //        error: function (result) {
-        //            AlertModal("Fejl i sletning af booking")
-        //        }
-        //    })
-        //}
     })
 
     $("#btnEditClose, #btnEditCloseFooter").click(function () {
         $("#EditModal").modal("hide");
         RenderCalendar();
     })
-    //$("#btnSave").click(function () {
-    //    //console.log(selectedEvent);
-    //    var startDate = $('#txtStart').val();
-    //    var endDate = $('#txtEnd').val();
-    //    if (startDate >= endDate) {
-    //        AlertModal('Invalid end date');
-    //        return;
-    //    }
-    //    var SaveEvent = {
-    //        start: startDate,
-    //        end: endDate,
-    //        title: selectedEvent.title,
-    //        id: selectedEvent.id,
-    //        resourceId: selectedEvent._def.resourceIds,
-    //        allDay: selectedEvent.allDay,
-    //        addressId: 1
-    //    };
-    //    $.ajax({
-    //        url: "Calendar/UpdateEvent",
-    //        type: "PUT",
-    //        dataType: "JSON",
-    //        data: SaveEvent,
-    //        success: function (result) {
-    //            AlertModal("Ændring gemt");
-    //            $('#EditModal').modal('hide');
-    //            RenderCalendar();
-    //        },
-    //        error: function (result) {
-    //            AlertModal("Fejl - ændring ikke gemt");
-    //        }
-    //    })
-    //})
 });

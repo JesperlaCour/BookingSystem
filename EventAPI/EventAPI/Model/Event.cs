@@ -5,7 +5,7 @@ namespace EventAPI.Model
     {
         public int Id { get; set; }
         public int ResourceId { get; set; }
-        public string CustomerId { get; set; }
+        public string UserName { get; set; }
 
         public bool AllDay { get; set; }
         public string Start { get; set; }

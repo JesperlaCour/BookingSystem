@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using DelPinBookingV2.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Authorization;
-
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
