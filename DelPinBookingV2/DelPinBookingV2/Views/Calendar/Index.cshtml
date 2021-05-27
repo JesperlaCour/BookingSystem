@@ -21,15 +21,14 @@
 
 
 
-@if (ViewBag.Message != null)
+@*@if (TempData["msg"] != null)
 {
 <script type="text/javascript">
-    console.log("ViewBag")
-            window.onload = function () {
+            onsubmit = function () {
                 alert("@ViewBag.Message");
             };
 </script>
-}
+}*@
 
 <h1>DelPin Booking1</h1>
 
