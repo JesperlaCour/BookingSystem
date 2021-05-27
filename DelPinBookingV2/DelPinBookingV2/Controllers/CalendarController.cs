@@ -67,16 +67,25 @@ namespace DelPinBooking.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateEvent(Event e)
+        public async Task<ActionResult> UpdateEvent(Event e)
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
-            var postTask = client.PutAsJsonAsync<Event>($"Events/" + e.Id, e);
-            postTask.Wait();
-            return RedirectToAction("Index");
+
+            var result = await client.PutAsJsonAsync<Event>($"Events/" + e.Id, e);
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Message = "The booking you attempted to edit has changed - please refresh calendar and try again ";
+                //return RedirectToAction("Index");
+                //ModelState.AddModelError(string.Empty, "The record you attempted to edit has changed - please update calendar and try again ");
+                return NoContent();
+            }
         }
 
         [HttpPost]

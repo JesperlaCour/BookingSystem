@@ -66,7 +66,7 @@ namespace EventAPI.Controllers
                 }
                 else
                 {
-                    throw;
+                    return Conflict();
                 }
             }
 
