@@ -19,6 +19,18 @@
     }
 </style>
 
+
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+    console.log("ViewBag")
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+</script>
+}
+
 <h1>DelPin Booking1</h1>
 
 @*Prototype af filtrering*@
@@ -66,7 +78,7 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    <button type="button" id="btnChooseDate"class="btn btn-info">Vælg</button>
+                    <button type="button" id="btnChooseDate" class="btn btn-info">Vælg</button>
                 </div>
                 <div class="pull-left">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -186,6 +198,7 @@
                     <button type="reset" id="btnEditClose" class="close">&times;</button>
                 </div>
                 <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Title">Title</label>
                         <input asp-for="Title" type="text" value="" id="txtSubject" class="form-control" readonly />
@@ -223,6 +236,7 @@
                     </div>
                     <input type="hidden" id="editId" asp-for="Id" value="" />
                     <input type="hidden" id="editResourceId" asp-for="ResourceId" value="" />
+                    <input type="hidden" id="editRowVersion" asp-for="RowVersion" value="" />
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">

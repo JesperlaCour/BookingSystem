@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DelPinBookingV2.Models
 {
@@ -12,6 +13,9 @@ namespace DelPinBookingV2.Models
         public string Start { get; set; }
         public string End { get; set; }
         public string AddressStr { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         public Event()
         {

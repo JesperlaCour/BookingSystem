@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("#editResourceId").val(selectedEvent._def.resourceIds);
                 $("#editUserName").val(data.userName);
                 $("#editAddressStr").val(data.addressStr);
+                $("#editRowVersion").val(data.rowVersion)
             }
         });
         $('#DetailModal').modal('hide');
@@ -203,6 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.gotoDate(date.value)
         $("#chooseDate").modal('hide')
     })
+
+    
 
 });
 
