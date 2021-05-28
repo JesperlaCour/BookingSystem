@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("#editUserName").val(data.userName);
                 $("#editAddressStr").val(data.addressStr);
                 $("#editRowVersion").val(data.rowVersion)
+                $("#editDeliveryCheckbox").prop("checked", data.delivery);
+                $("#editDeliveryComments").val(data.deliveryComments)
             }
         });
         $('#DetailModal').modal('hide');
@@ -130,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#detailStart").text(data.start)
             $("#detailEnd").text(data.end)
             $("#detailAddress").text(data.addressStr)
+            $("#detailDeliveryCheckbox").prop("checked", data.delivery);
+            $("#detailDeliveryComments").val(data.deliveryComments)
         })
         $("#DetailModal").modal();
     }
