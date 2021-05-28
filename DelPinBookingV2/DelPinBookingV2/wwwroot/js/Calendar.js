@@ -89,6 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#txtCreateEnd').val(toDatetimeLocal(selectedEvent.end));
             $('#CreateModal').modal();
             $("#CreateResourceId").val(selectedEvent.resource.id)
+            $.validator.unobtrusive.parse("#CreateModal");
+
         }
     }
 

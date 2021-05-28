@@ -89,7 +89,7 @@ namespace DelPinBooking.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateEvent(Event e)
+        public async Task<ActionResult> CreateEvent(Event e)
         {
             if (ModelState.IsValid)
             {
@@ -98,26 +98,35 @@ namespace DelPinBooking.Controllers
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var postTask = client.PostAsJsonAsync<Event>($"Events", e);
-                postTask.Wait();
+                var result =  await client.PostAsJsonAsync<Event>($"Events", e);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
 
-            return RedirectToAction("Index");
+            return NoContent();
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteEvent(int? id)
+        public async Task<ActionResult> DeleteEvent(int? id)
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var postTask = client.DeleteAsync($"Events/" + id);
-            postTask.Wait();
-            return RedirectToAction("Index");
+            var result = await client.DeleteAsync($"Events/" + id);
+
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return NoContent();
         }
     }
 }
