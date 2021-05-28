@@ -24,6 +24,7 @@ namespace DelPinBooking.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            //ViewBag.Message = TempData["msg"];
             return View();
         }
 
@@ -81,9 +82,7 @@ namespace DelPinBooking.Controllers
             }
             else
             {
-                ViewBag.Message = "The booking you attempted to edit has changed - please refresh calendar and try again ";
-                //return RedirectToAction("Index");
-                //ModelState.AddModelError(string.Empty, "The record you attempted to edit has changed - please update calendar and try again ");
+                //TempData["msg"] = "The booking you attempted to edit has changed - please refresh calendar and try again ";
                 return NoContent();
             }
         }
