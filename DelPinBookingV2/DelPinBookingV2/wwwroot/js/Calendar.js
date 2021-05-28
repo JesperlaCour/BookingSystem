@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek',
             right: 'DatePicker,today prev,next'
         },
-        initialView: 'resourceTimelineFourDays',
+        initialView: 'resourceTimelineDay',
         views: {
             resourceTimelineFourDays: {
                 buttontext: '4 dage',
