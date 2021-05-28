@@ -10,13 +10,13 @@ namespace DelPinBookingV2.Models
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email er ikke gyldig format")]
         public string UserName { get; set; }
 
         public bool AllDay { get; set; } = false;
 
         [Required]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "Title is not valid")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "Title skal være mellem 3 og 60 tegn")]
         [DataType(DataType.Text)]
         public string Title { get; set; }
 
@@ -28,7 +28,10 @@ namespace DelPinBookingV2.Models
 
         [Required]
         [DataType(DataType.Text)]
+
+        [MinLength(3,ErrorMessage = "Addressen er ikke gyldig format")]
         public string AddressStr { get; set; }
+
 
         public bool delivery { get; set; }
         public string deliveryComments { get; set; }
