@@ -13,7 +13,8 @@ namespace EventAPI.Model
         public string End { get; set; }
         public string Title { get; set; }
         public string AddressStr { get; set; }
-        public bool Delivering { get; set; }
+        public bool Delivery { get; set; }
+        public string DeliveryComments { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

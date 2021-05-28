@@ -14,6 +14,9 @@ namespace DelPinBookingV2.Models
         public string End { get; set; }
         public string AddressStr { get; set; }
 
+        public bool delivery { get; set; }
+        public string deliveryComments { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
