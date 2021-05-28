@@ -21,7 +21,7 @@ namespace DelPinBookingV2.Controllers
             categories = result.Content.ReadAsAsync<IEnumerable<SubCategory>>().Result;
         }
             
-        HttpClient client;
+        //HttpClient client;
         string url = "https://localhost:5002/api/";
 
 
