@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DelPinBookingV2.Models
 {
     public class Resource
     {
-       
 
+        [Key]
         public int Id { get; set; }
+        [DataType(DataType.Text)]
         public string Title { get; set; }
         public string groupId { get; set; }
 
