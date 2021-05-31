@@ -105,10 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return time;
     }
 
-    function QuickCreateNewEvent() {
-
-    }
-
 
     //Update Existing event
     function UpdateExistingEvent() {
