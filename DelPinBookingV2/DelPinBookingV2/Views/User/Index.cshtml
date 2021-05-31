@@ -1,0 +1,78 @@
+﻿@using DelPinBookingV2.Models
+
+@model List<DelPinBookingV2.Models.UserRolesViewModel>
+@{
+    ViewData["Title"] = "UserRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>User Roles</h1>
+
+@*@using (Html.BeginForm())
+{
+    <p>-->
+    Html.TextBox("SearchString", null, new {class="form-control"})
+        <!--<input input="Text" value="SearchString"/>
+    <input type="submit" value="search" class="btn btn-primary"/>
+    </p>
+}*@
+
+<form class="form-inline col-lg" asp-controller="User" asp-action="Index" method="get">
+
+    <div class="col-lg-5 input-group">        
+        <input class="form-control" type="text" name="searchString"/>
+        <input class="btn btn-info" type="submit" value="Søg på navn"/><br />
+
+    </div>
+</form>
+
+<table class="table table-striped" id="userTable">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Phonenumber</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.Phonenumber</td>
+                <td>@user.Email</td>
+                <td>@string.Join(" , ", user.Roles.ToList())</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
+
+
+
+
+@*AlertModal*@
+<div id="AlertModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="alertText"></p>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
