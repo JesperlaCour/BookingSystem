@@ -99,6 +99,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return time;
     }
 
+    function QuickCreateNewEvent() {
+
+    }
+
+
     //Update Existing event
     function UpdateExistingEvent() {
         console.log(selectedEvent);
@@ -159,6 +164,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
+    $("#quickCreateEventBtn").click(function () {
+        $("#QuickCreateModal").modal('show');
+    })
+
+    
     $("#btnEditClose, #btnEditCloseFooter").click(function () {
         $("#EditModal").modal('hide');
         calendar.refetchEvents()
