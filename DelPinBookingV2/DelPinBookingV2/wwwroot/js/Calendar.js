@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek',
             right: 'DatePicker,today prev,next'
         },
-        initialView: 'resourceTimelineFourDays',
+        initialView: 'resourceTimelineDay',
         views: {
             resourceTimelineFourDays: {
                 buttontext: '4 dage',
@@ -89,8 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#txtCreateEnd').val(toDatetimeLocal(selectedEvent.end));
             $('#CreateModal').modal();
             $("#CreateResourceId").val(selectedEvent.resource.id)
-            $.validator.unobtrusive.parse("#CreateModal");
-
         }
     }
 
@@ -166,6 +164,14 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.refetchEvents()
     })
 
+    $("#CreateCloseFooter, #CreateCloseHeader").click(function () {
+        $("#txtTitle").val("")
+        $("#UserName").val("")
+        $("#adresse").val("")
+        $("#CreateDeliveryComments").val("")
+        $("#CreateDeliveryCheckbox").prop("checked", false)
+    })
+
     $("#btnChangeAddress").click(function () {
         $("#EditModal").modal('hide');
         $("#changeAddressModal").modal();
@@ -191,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
     "use strict"
     dawaAutocomplete.dawaAutocomplete(document.getElementById("adresse"), {
         select: function (selected) {
-            $("#valgtadresse").val(selected.tekst);
+            //$("#valgtadresse").val(selected.tekst);
         }
     });
 
