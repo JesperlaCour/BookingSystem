@@ -49,7 +49,7 @@ namespace DelPinBookingV2.Controllers
         }
 
 
-        
+        [HttpGet]
         public async Task<IActionResult> Manage(string userId)
         {
             ViewBag.userId = userId;
@@ -62,8 +62,14 @@ namespace DelPinBookingV2.Controllers
             ViewBag.UserName = user.UserName;
 
             var model = new List<ManageUserRolesViewModel>();
-            foreach (var role in _roleManager.Roles)
+
+            var roles = _roleManager.Roles.ToList();
+            foreach (var role in roles)
             {
+                if (role.Name == null)
+                {
+                    continue;
+                }
                 var userRolesViewModel = new ManageUserRolesViewModel
                 {
                     RoleId = role.Id,
