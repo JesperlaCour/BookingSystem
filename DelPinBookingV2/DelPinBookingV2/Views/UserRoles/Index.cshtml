@@ -5,9 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <h1>User Roles</h1>
+
+<form class="form-inline col-lg">   
+    <div class="col-lg-5 input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-info">Search Users</button>
+        </span>
+        <input class="form-control" type="text" />
+    </div>  
+</form>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -37,8 +46,8 @@
 
 
 
-@*AlertModal*@
-<!--<div id="AlertModal" class="modal fade" role="dialog">
+AlertModal
+<div id="AlertModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,4 +66,4 @@
 
     </div>
 
-</div>-->
+</div>
