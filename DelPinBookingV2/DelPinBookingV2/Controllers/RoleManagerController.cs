@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DelPinBookingV2.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class RoleManagerController : Controller
     {
+        
         private readonly RoleManager<IdentityRole> _roleManager;
+        
         public RoleManagerController(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
