@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
         headerToolbar: {
             center: 'resourceTimelineDay,resourceTimelineFourDays,resourceTimelineWeek',
-            right: 'DatePicker,today prev,next'
+            right: 'QuickCreate DatePicker,today prev,next'
         },
         initialView: 'resourceTimelineDay',
         views: {
@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 text: 'Vælg dato',
                 click: function () {
                     $("#chooseDate").modal()
+                }
+            },
+            QuickCreate: {
+                text: 'Opret booking',
+                click: function () {
+                    $("#QuickCreateModal").modal();
                 }
             }
         },  
@@ -164,10 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    $("#quickCreateEventBtn").click(function () {
-        $("#QuickCreateModal").modal('show');
-    })
-
     
     $("#btnEditClose, #btnEditCloseFooter").click(function () {
         $("#EditModal").modal('hide');
@@ -206,6 +208,13 @@ document.addEventListener('DOMContentLoaded', function () {
     //DAWA autocomplete adresse (https://dataforsyningen.dk/)
     "use strict"
     dawaAutocomplete.dawaAutocomplete(document.getElementById("adresse"), {
+        select: function (selected) {
+            //$("#valgtadresse").val(selected.tekst);
+        }
+    });
+
+    "use strict"
+    dawaAutocomplete.dawaAutocomplete(document.getElementById("quickAddress"), {
         select: function (selected) {
             //$("#valgtadresse").val(selected.tekst);
         }
