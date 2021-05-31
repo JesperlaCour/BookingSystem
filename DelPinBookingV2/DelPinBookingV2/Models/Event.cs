@@ -6,6 +6,9 @@ namespace DelPinBookingV2.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Indtast gyldigt ressourceId")]
         public int ResourceId { get; set; }
 
         [Required]

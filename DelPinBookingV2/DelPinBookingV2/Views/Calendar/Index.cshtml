@@ -22,15 +22,19 @@
 
 
 @*@if (TempData["msg"] != null)
-{
-<script type="text/javascript">
-            onsubmit = function () {
-                alert("@ViewBag.Message");
-            };
-</script>
-}*@
+    {
+    <script type="text/javascript">
+                onsubmit = function () {
+                    alert("@ViewBag.Message");
+                };
+    </script>
+    }*@
 
 <h1>DelPin Booking1</h1>
+
+
+
+
 
 @*Prototype af filtrering*@
 <div class="filter col-lg-8">
@@ -128,10 +132,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="AddressStr">Addresse</label>
-                        <input asp-for="AddressStr" class="form-control" type="text" id="adresse" value="" />
+                        <input asp-for="AddressStr" class="form-control" type="text" id="quickAddress" value="" />
                         <span asp-validation-for="AddressStr" class="text-danger"></span>
-                        @*<input type="hidden" id="valgtadresse" asp-for="AddressStr" value="" />*@
-
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
@@ -158,6 +160,77 @@
     </div>
 </div>
 
+
+
+
+@*Quick Create Modal*@
+<div id="QuickCreateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="CreateForm" asp-controller="Calendar" asp-action="CreateEvent" method="POST" autocomplete="off">
+
+                <div class="modal-header">
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                    <button type="button" class="close" id="CreateCloseHeader" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title">Title</label>
+                        <input asp-for="Title" id="txtTitle" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ResourceId">Resource</label>
+                        <input asp-for="ResourceId" type="text" id="ResourcerId" class="form-control" />
+                        <span asp-validation-for="ResourceId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserName">Email</label>
+                        <input asp-for="UserName" type="text" id="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Start" class="control-label">Start</label>
+                        <div class="input-group date" id="dtp1">
+                            <input asp-for="Start" type="datetime-local" id="txtCreateStart" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="End">End</label>
+                        <div class="input-group date" id="dtp2">
+                            <input asp-for="End" type="datetime-local" id="txtCreateEnd" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AddressStr">Addresse</label>
+                        <input asp-for="AddressStr" class="form-control" type="text" id="adresse" value="" />
+                        <span asp-validation-for="AddressStr" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Leveres</span>
+                            <span class="input-group-text">
+                                <input asp-for="delivery" type="checkbox" id="CreateDeliveryCheckbox" class="" />
+                            </span>
+                        </div>
+                        <input asp-for="deliveryComments" type="text" id="CreateDeliveryComments" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-left">
+                        <button type="submit" id="btnCreateSave" class="btn btn-success">Save</button>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default" id="CreateCloseFooter" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @*Modal for showing details when clicking on event in calendar*@
 <div id="DetailModal" class="modal fade" role="dialog">
@@ -192,7 +265,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Leveres</span>
                         <span class="input-group-text">
-                            <input type="checkbox" id="detailDeliveryCheckbox" class="" disabled/>
+                            <input type="checkbox" id="detailDeliveryCheckbox" class="" disabled />
                         </span>
                     </div>
                     <input type="text" id="detailDeliveryComments" class="form-control" disabled />
@@ -212,7 +285,7 @@
 </div>
 
 @*Modal for edit existing event*@
-<div id="EditModal" class="modal fade" role="dialog" >
+<div id="EditModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <form id="UpdateForm" asp-controller="Calendar" asp-action="UpdateEvent" method="post" autocomplete="off">
