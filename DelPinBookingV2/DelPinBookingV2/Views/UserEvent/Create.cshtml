@@ -1,0 +1,64 @@
+﻿@model DelPinBookingV2.Models.Event
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Opret ny booking</h1>
+
+<h4 style="text-align:center">Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Dit navn</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Start" class="control-label">Start</label>
+                <div class="input-group date" id="dtp1">
+                    <input asp-for="Start" type="datetime-local" id="txtCreateStart" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="End">End</label>
+                <div class="input-group date" id="dtp2">
+                    <input asp-for="End" type="datetime-local" id="txtCreateEnd" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressStr">Addresse</label>
+                <input asp-for="AddressStr" class="form-control" type="text" id="adresse" value="" />
+                <span asp-validation-for="AddressStr" class="text-danger"></span>
+
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Leveres</span>
+                    <span class="input-group-text">
+                        <input asp-for="delivery" type="checkbox" id="CreateDeliveryCheckbox" class="" />
+                    </span>
+                </div>
+                <input asp-for="deliveryComments" type="text" id="CreateDeliveryComments" class="form-control" />
+            </div>
+            <input type="hidden" asp-for="UserName" value="@User.Identity.Name" />
+            <input type="hidden" asp-for="ResourceId" value="5" /> @*Takes resouceId from homepage / delpin.dk*@
+
+            <div class="form-group">
+                <input type="submit" value="Opret booking" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index">Vis mine bookinger</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

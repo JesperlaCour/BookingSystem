@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DelPinBookingV2.Controllers
 {
    
-
+    [Authorize]
     public class UserController : Controller
     {    
         private readonly UserManager<ApplicationUser> _userManager;
