@@ -1,0 +1,43 @@
+﻿@using DelPinBookingV2.Models
+
+@model List<DelPinBookingV2.Models.Event>
+
+@{ ViewData["Title"] = "UserEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<h1>Mine Bookinger</h1>
+
+<table class="table table-striped" id="userTable">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>ResourceId</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Adresse</th>
+            <th>Levering</th>
+            <th>Kommentar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.ResourceId</td>
+                    <td>@item.Start</td>
+                    <td>@item.End</td>
+                    <td>@item.AddressStr</td>
+                    <td>@item.delivery</td>
+                    <td>@item.deliveryComments</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="UserEvent" asp-action="Delete">Slet booking</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
