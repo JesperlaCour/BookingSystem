@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DelPinBookingV2.Controllers
 {
    
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class UserController : Controller
     {    
         private readonly UserManager<ApplicationUser> _userManager;
@@ -40,7 +40,7 @@ namespace DelPinBookingV2.Controllers
                 thisViewModel.UserId = user.Id;
                 thisViewModel.Email = user.Email;
                 thisViewModel.FirstName = user.Name;
-                thisViewModel.LastName = user.UserName;
+                thisViewModel.Phonenumber = user.PhoneNumber;
                 thisViewModel.Roles = await GetUserRoles(user);
                 userRolesViewModel.Add(thisViewModel);
             }
