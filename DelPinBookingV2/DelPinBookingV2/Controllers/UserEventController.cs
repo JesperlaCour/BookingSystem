@@ -13,7 +13,7 @@ namespace DelPinBookingV2.Controllers
     public class UserEventController : Controller
     {
         HttpClient client;
-        string url = "https://localhost:5001/api/Events";
+        string url = "https://delpineventapi.azurewebsites.net/api/events";
 
         // GET: UserEventController
         public ActionResult Index()
