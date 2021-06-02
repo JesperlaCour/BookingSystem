@@ -14,6 +14,9 @@ namespace DelPinBookingV2.Controllers
 
     public class ResourceController : Controller
     {
+        string url = "https://delpinresourceapi.azurewebsites.net/api/";
+        
+
         IEnumerable<SubCategory> categories;
         public ResourceController()
         {
@@ -21,10 +24,16 @@ namespace DelPinBookingV2.Controllers
             HttpResponseMessage result = NewClient("SubCategories").GetAsync("").Result;
             categories = result.Content.ReadAsAsync<IEnumerable<SubCategory>>().Result;
         }
-            
-        //HttpClient client;
-        string url = "https://delpinresourceapi.azurewebsites.net/api/";
 
+        public ResourceController(string v)
+        {
+            HttpResponseMessage result = NewClient("SubCategories").GetAsync("").Result;
+            categories = result.Content.ReadAsAsync<IEnumerable<SubCategory>>().Result;
+            url = v;
+        }
+
+        //HttpClient client;
+        
 
         // GET: /<controller>/
         public IActionResult Index()
@@ -35,11 +44,6 @@ namespace DelPinBookingV2.Controllers
         [HttpGet]
         public JsonResult GetCalendarResources()
         {
-            //client = new HttpClient();
-            //client.BaseAddress = new Uri(url);
-            //client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
             HttpResponseMessage response = NewClient("Resources").GetAsync("").Result;
 
             if (response.IsSuccessStatusCode)
