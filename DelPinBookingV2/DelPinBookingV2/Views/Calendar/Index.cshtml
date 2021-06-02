@@ -52,7 +52,7 @@
         </div>
         <div class="col-lg-5 input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text">søg maskine</span>
+                <span class="input-group-text">Søg maskine</span>
             </div>
             <input class="form-control" type="text" />
 
@@ -148,10 +148,10 @@
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">
-                        <button type="submit" id="btnCreateSave" class="btn btn-success">Save</button>
+                        <button type="submit" id="btnCreateSave" class="btn btn-success">Gem</button>
                     </div>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-default" id="CreateCloseFooter" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" id="CreateCloseFooter" data-dismiss="modal">Luk</button>
                     </div>
 
                 </div>
@@ -176,7 +176,7 @@
                 <div class="modal-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Title">Title</label>
+                        <label asp-for="Title">Titel</label>
                         <input asp-for="Title" id="txtTitle" class="form-control" />
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
@@ -197,13 +197,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="End">End</label>
+                        <label asp-for="End">Slut</label>
                         <div class="input-group date" id="dtp2">
                             <input asp-for="End" type="datetime-local" id="txtCreateEnd" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="AddressStr">Addresse</label>
+                        <label asp-for="AddressStr">Adresse</label>
                         <input asp-for="AddressStr" class="form-control" type="text" id="adresse" value="" />
                         <span asp-validation-for="AddressStr" class="text-danger"></span>
 
@@ -220,10 +220,10 @@
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">
-                        <button type="submit" id="btnCreateSave" class="btn btn-success">Save</button>
+                        <button type="submit" id="btnCreateSave" class="btn btn-success">Gem</button>
                     </div>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-default" id="CreateCloseFooter" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" id="CreateCloseFooter" data-dismiss="modal">Luk</button>
                     </div>
 
                 </div>
@@ -252,13 +252,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>End</label>
+                    <label>Slut</label>
                     <div class="input-group date">
                         <p id="detailEnd" class="form-control"></p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Addresse</label>
+                    <label>Adresse</label>
                     <p id="detailAddress" class="form-control"></p>
                 </div>
                 <div class="form-group input-group">
@@ -273,11 +273,11 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    <button id="btnDelete" class="btn btn-warning">Delete</button>
-                    <button id="btnEdit" class="btn btn-info" style="margin-right:5px;">Edit</button>
+                    <button id="btnDelete" class="btn btn-warning">Slet</button>
+                    <button id="btnEdit" class="btn btn-info" style="margin-right:5px;">Rediger</button>
                 </div>
                 <div class="pull-right">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Luk</button>
                 </div>
             </div>
         </div>
@@ -296,7 +296,7 @@
                 <div class="modal-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Title">Title</label>
+                        <label asp-for="Title">Titel</label>
                         <input asp-for="Title" type="text" value="" id="txtSubject" class="form-control" />
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
@@ -310,7 +310,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="End">End</label>
+                        <label asp-for="End">Slut</label>
                         <div class="input-group date" id="dtp2">
                             <input asp-for="End" type="datetime-local" id="txtEnd" class="form-control" />
                             <span class="input-group-addon">
@@ -346,10 +346,10 @@
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">
-                        <button type="submit" id="btnSave" class="btn btn-success">Save</button>
+                        <button type="submit" id="btnSave" class="btn btn-success">Gem</button>
                     </div>
                     <div class="pull-right">
-                        <button type="reset" id="btnEditCloseFooter" class="btn btn-default">Close</button>
+                        <button type="reset" id="btnEditCloseFooter" class="btn btn-default">Luk</button>
                     </div>
                 </div>
             </form>
@@ -372,7 +372,7 @@
                 <div class="pull-left">
                     <form asp-controller="Calendar" asp-action="DeleteEvent" method="post">
                         <input asp-for="Id" type="hidden" id="DeleteId" value="" />
-                        <button type="submit" class="btn btn-danger">Confirm</button>
+                        <button type="submit" class="btn btn-danger">Bekræft</button>
                     </form>
                 </div>
                 <div class="pull-left">
@@ -399,7 +399,7 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Bekræft</button>
                 </div>
             </div>
         </div>
@@ -422,14 +422,14 @@
                     <input class="form-control" id="ExistingAddress" readonly />
                 </div>
                 <div class="form-group">
-                    <label>Addresse</label>
+                    <label>Adresse</label>
                     <input class="form-control" type="text" id="ChangeAddress" value="" />
                     <input type="hidden" id="NewAddress" value="" />
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    <button type="button" id="NewAddressSave" class="btn btn-success">Save</button>
+                    <button type="button" id="NewAddressSave" class="btn btn-success">Gem</button>
                 </div>
                 <div class="pull-left">
                     <button type="button" id="btnDismissNewAddress" class="btn btn-danger" data-dismiss="modal">Annuller</button>
