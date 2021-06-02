@@ -19,13 +19,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hjem</a>
                         </li>
                         @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Index">Calendar</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Index">Kalender</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="UserEvent" asp-action="Index">Mine Bookinger</a>
@@ -35,7 +35,7 @@
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="RoleManager" asp-action="Index">RoleManager</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="RoleManager" asp-action="Index">Rolle Manager</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Brugere</a>
@@ -56,7 +56,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - DelPinBookingV2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - DelPinBookingV2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privat</a>
         </div>
     </footer>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>

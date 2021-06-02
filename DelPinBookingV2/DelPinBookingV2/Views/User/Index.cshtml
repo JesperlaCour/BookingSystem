@@ -29,11 +29,11 @@
 <table class="table table-striped" id="userTable">
     <thead>
         <tr>
-            <th>First Name</th>
-            <th>Phonenumber</th>
+            <th>Navn</th>
+            <th>Telefonnummer</th>
             <th>Email</th>
-            <th>Roles</th>
-            <th>Action</th>
+            <th>Rolle</th>
+            <th>Funktion</th>
         </tr>
     </thead>
     <tbody>
@@ -45,7 +45,7 @@
                 <td>@user.Email</td>
                 <td>@string.Join(" , ", user.Roles.ToList())</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
+                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Ændre Rolle</a>
                 </td>
             </tr>
             }
