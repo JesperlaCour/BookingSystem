@@ -18,7 +18,7 @@ namespace DelPinBooking.Controllers
     public class CalendarController : Controller
     {
         HttpClient client;
-        string url = "https://localhost:5001/api/Events";
+        string url = "https://delpineventapi.azurewebsites.net/api/events";
 
 
         // GET: /<controller>/

@@ -22,7 +22,7 @@ namespace DelPinBookingV2.Controllers
         }
             
         //HttpClient client;
-        string url = "https://localhost:5002/api/";
+        string url = "https://delpinresourceapi.azurewebsites.net/api/";
 
 
         // GET: /<controller>/
