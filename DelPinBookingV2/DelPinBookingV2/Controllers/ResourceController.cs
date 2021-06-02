@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DelPinBookingV2.Controllers
 {
     [Authorize]
+
     public class ResourceController : Controller
     {
         IEnumerable<SubCategory> categories;

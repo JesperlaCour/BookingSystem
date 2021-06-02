@@ -14,7 +14,8 @@ using System.Net.Http.Headers;
 namespace DelPinBooking.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles = "Admin,Employee")]
+
     public class CalendarController : Controller
     {
         HttpClient client;
