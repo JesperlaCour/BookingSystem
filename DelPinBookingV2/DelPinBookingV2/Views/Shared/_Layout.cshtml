@@ -42,7 +42,7 @@
                                 }
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    if (User.IsInRole("Costumer"))
+                                    if (User.IsInRole("Customer"))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link text-dark" asp-area="" asp-controller="UserEvent" asp-action="Index">Mine Bookinger</a>
