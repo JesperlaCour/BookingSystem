@@ -113,9 +113,7 @@ namespace DelPinBooking.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
             return NoContent();
-
         }
 
         [HttpPost]

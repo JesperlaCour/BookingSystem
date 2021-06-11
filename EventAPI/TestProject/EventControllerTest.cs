@@ -20,7 +20,7 @@ namespace TestProject
         {
         }
 
-        //testing using InMemoryDatabase du to integration with EF Core. 
+        //testing using InMemoryDatabase due to integration with EF Core. 
 
         //Mock - controller hard coded to work with EventContext. Could probable be solved with dependency injection (interface)
         //
@@ -65,7 +65,7 @@ namespace TestProject
 
         [TestMethod]
         [DataRow(4,"Lars")]
-        public void PostEvent_returnSuccess(int id, string name)
+        public void PostEvent_CreateNewEvent_ExpectedCreatedAtActionResult(int id, string name)
         {
             Event newEvent = new Event { Id = id, Title = name };
             using (var context = new EventContext(ContextOptions))
@@ -81,7 +81,6 @@ namespace TestProject
                 Assert.AreEqual(4, countEvents);
 
             }
-
         }
 
 
