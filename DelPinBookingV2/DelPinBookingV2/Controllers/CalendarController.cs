@@ -20,13 +20,9 @@ namespace DelPinBooking.Controllers
         HttpClient client;
         string url = "https://delpineventapi.azurewebsites.net/api/events";
 
-        public CalendarController(string v)
-        {
-            url = v;
-        }
+        
         public CalendarController() { }
 
-        public string V { get; }
 
 
         // GET: /<controller>/

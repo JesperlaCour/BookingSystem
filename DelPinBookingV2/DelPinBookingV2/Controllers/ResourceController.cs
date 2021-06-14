@@ -25,15 +25,6 @@ namespace DelPinBookingV2.Controllers
             categories = result.Content.ReadAsAsync<IEnumerable<SubCategory>>().Result;
         }
 
-        public ResourceController(string v)
-        {
-            HttpResponseMessage result = NewClient("SubCategories").GetAsync("").Result;
-            categories = result.Content.ReadAsAsync<IEnumerable<SubCategory>>().Result;
-            url = v;
-        }
-
-        //HttpClient client;
-        
 
         // GET: /<controller>/
         public IActionResult Index()
